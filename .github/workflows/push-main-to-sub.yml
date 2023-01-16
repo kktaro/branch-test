@@ -1,0 +1,14 @@
+name: Push main to sub
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
+jobs:
+  Trigger-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Trigger!"
+      - run: ls -la
+      
