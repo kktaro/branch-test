@@ -11,4 +11,15 @@ jobs:
     steps:
       - run: echo "Trigger!"
       - run: ls -la
-      
+  Check-Out:
+    runs-on: ubuntu-latest
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3.3.0
+        with: 
+          fetch-depth: 0
+      - name: FetchTicketKey
+        run: echo ${{ github.head_ref }}
+          
