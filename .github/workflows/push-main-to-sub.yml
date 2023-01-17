@@ -21,8 +21,12 @@ jobs:
         with: 
           fetch-depth: 0
       - name: PullRequestParameter
+        env: 
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+          ASSIGNEES: ${{ github.event.pull_request.assignees }}
+
         run: |
-          echo ${{ github.event.pull_request.title }}
-          echo ${{ github.event.pull_request.body }}
-          echo ${{ github.event.pull_request.assignee }}
-          echo ${{ github.event.pull_request.assignees }}
+          echo $TITLE
+          echo $BODY
+          echo $ASSIGNEES
