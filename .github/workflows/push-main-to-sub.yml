@@ -19,6 +19,4 @@ jobs:
           REVIWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login) }}
           HEAD: ${{ github.event.pull_request.head.ref }}
 
-        run: | 
-          echo $REVIWERS
-          echo $HEAD
+        run: gh pr create --base sub --head $HEAD --title $TITLE --body $BODY --assignee $ASSIGNEES --reviwer $REVIWERS
