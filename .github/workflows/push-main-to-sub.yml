@@ -14,7 +14,7 @@ jobs:
       - name: Pull-Request-Parameters
         env: 
           TITLE: ${{ github.event.pull_request.title }}
-          BODY: ${{ github.event.pull_request.body }}
+          BODY: "${{ github.event.pull_request.body }}"
           ASSIGNEES: ${{ join(github.event.pull_request.assignees.*.login) }}
           REVIEWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login) }}
           HEAD: ${{ github.event.pull_request.head.ref }}
