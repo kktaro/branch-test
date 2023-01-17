@@ -11,10 +11,6 @@ jobs:
     env: 
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.3.0
-        with: 
-          fetch-depth: 0
       - name: Pull-Request-Parameters
         env: 
           TITLE: ${{ github.event.pull_request.title }}
@@ -25,4 +21,4 @@ jobs:
           echo $TITLE
           echo $BODY
           echo $ASSIGNEE
-          echo ${{ github.event.pull_request.assignees.*.login }}
+          echo ${{ join(github.event.pull_request.assignees.*.login) }}
