@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
       - name: Pull-Request-Parameters
         env: 
-          TITLE: "[SUB]${{ github.event.pull_request.title }}"
+          TITLE: ${{ github.event.pull_request.title }}
           BODY: ${{ github.event.pull_request.body }}
           ASSIGNEES: ${{ join(github.event.pull_request.assignees.*.login) }}
           REVIEWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login) }}
