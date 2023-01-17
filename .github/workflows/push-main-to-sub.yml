@@ -20,4 +20,4 @@ jobs:
           HEAD: ${{ github.event.pull_request.head.ref }}
         
         # run : echo $BODY
-        run: gh pr create --base sub --head $HEAD --title $TITLE --body "test BODY" --assignee $ASSIGNEES --reviewer $REVIEWERS
+        run: gh pr create --base sub --head "${HEAD}" --title "${TITLE}" --body "${BODY}" --assignee "${ASSIGNEES}" --reviewer "${REVIEWERS}"
