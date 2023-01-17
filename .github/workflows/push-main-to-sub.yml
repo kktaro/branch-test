@@ -21,5 +21,15 @@ jobs:
         with: 
           fetch-depth: 0
       - name: FetchTicketKey
-        run: echo ${{ github.head_ref }}
-          
+        env:
+          ISSUE_KEY_MATCHER: "[A-Z]+-[0-9]+"
+        run: |
+          if[[ ${{ github.head_ref }} =~ ${ ISSUE_KEY_MATCHER } ]]; then
+            issue_key=${ BASH_REMATCH[0] }
+          else
+            exit 0
+          fi
+          echo "ISSUE_KEY=${ issue_key }" >> $GITHUB_ENV
+      - name: GetPullRequestContents
+        run: |
+          echo ${{ env.ISSUE_KEY }}          
