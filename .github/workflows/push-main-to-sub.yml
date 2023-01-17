@@ -14,7 +14,7 @@ jobs:
   Check-Out:
     runs-on: ubuntu-latest
     env: 
-      GITHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: checkout
         uses: actions/checkout@v3.3.0
@@ -25,11 +25,11 @@ jobs:
           ISSUE_KEY_MATCHER: "[A-Z]+-[0-9]+"
         run: |
           if [[ ${{ github.head_ref }} =~ ${ISSUE_KEY_MATCHER} ]]; then
-            issue_key=${ BASH_REMATCH[0] }
+            issue_key=${BASH_REMATCH[0]}
           else
             exit 0
           fi
-          echo "ISSUE_KEY=${ issue_key }" >> $GITHUB_ENV
+          echo "ISSUE_KEY=${issue_key}" >> $GITHUB_ENV
       - name: GetPullRequestContents
         run: |
           echo ${{ env.ISSUE_KEY }}          
