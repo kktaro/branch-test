@@ -13,11 +13,11 @@ jobs:
     steps:
       - name: Pull-Request-Parameters
         env: 
-          TITLE: ${{ github.event.pull_request.title }}
-          BODY: "[SUB]${{ github.event.pull_request.body }}"
+          TITLE: "[SUB]${{ github.event.pull_request.title }}"
+          BODY: "${{ github.event.pull_request.body }}"
           ASSIGNEES: ${{ join(github.event.pull_request.assignees.*.login) }}
           REVIEWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login) }}
           HEAD: ${{ github.event.pull_request.head.ref }}
         
-        run : echo $BODY
-        # run: gh pr create --base sub --head $HEAD --title $TITLE --body "${BODY}" --assignee $ASSIGNEES --reviewer $REVIEWERS
+        # run : echo $BODY
+        run: gh pr create --base sub --head $HEAD --title $TITLE --body $BODY --assignee $ASSIGNEES --reviewer $REVIEWERS
