@@ -28,4 +28,4 @@ jobs:
         run: |
           echo $TITLE
           echo $BODY
-          echo ${{ github.event.pull_request.assignees }}
+          echo ${{ github.event.pull_request.assignees.*.login }}
