@@ -2,28 +2,17 @@
 
 select type in "MMB" "MMS"
 do
-    case $type in
-        "MMB")
-            break
-            ;;
-        "MMS")
-            break
-            ;;
-    esac
+    break
 done
 
-echo $type
-
 read -p "Title: " title
-echo $title
 
-read -p "Ticket: " ticket
-echo $ticket
-
-read -p "Content: " content
-echo $content
-
-read -p "Remarks: " remarks
-echo $remarks
-
-
+case $type in
+    "MMB")
+        gh pr create --assignee @me --base main --title "[MAIN] $title" --web
+        gh pr create --assignee @me --base sub --title "[SUB] $title" --web
+        ;;
+    "MMS")
+        gh pr create --assignee @me --base sub --title "[SUB] $title" --web
+        ;;
+esac

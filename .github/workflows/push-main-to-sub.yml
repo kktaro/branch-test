@@ -1,0 +1,26 @@
+name: Push main to sub
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
+jobs:
+  Create-Pull-Request:
+    runs-on: ubuntu-latest
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with: 
+          fetch-depth: 0
+      - name: Pull-Request-Parameters
+        env: 
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+
+        run: |
+          echo $TITLE
+          echo $BODY
+          echo ${{ github.event.pull_request.assignees.*.login }}
