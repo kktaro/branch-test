@@ -1,8 +1,8 @@
 name: Push main to sub
 on:
   pull_request:
-    types:
-      - opened
+    # types:
+    #   - opened
     branches:
       - 'main'
 jobs:
@@ -19,8 +19,8 @@ jobs:
         env: 
           TITLE: ${{ github.event.pull_request.title }}
           BODY: ${{ github.event.pull_request.body }}
-
-        run: |
-          echo $TITLE
-          echo $BODY
-          echo ${{ github.event.pull_request.assignees.*.login }}
+          ASSIGNEES: ${{ join(github.event.pull_request.assignees.*.login) }}
+          REVIEWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login) }}
+          HEAD: ${{ github.event.pull_request.head.ref }}
+        
+        run: gh pr create --base sub --head "${HEAD}" --title "${TITLE}" --body "${BODY}" --assignee "${ASSIGNEES}" --reviewer "${REVIEWERS}" --label "SUB"

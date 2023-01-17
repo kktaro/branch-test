@@ -1,0 +1,19 @@
+name: Add label
+on:
+  pull_request:
+    # types:
+    #   - opened
+    branches:
+      - 'sub'
+jobs:
+  Create-Pull-Request:
+    runs-on: ubuntu-latest
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Add SUB Label
+        if: ${{ !contains(github.event.pull_request.labels.*.name, "SUB") }}
+        env: 
+          NUMBER: ${{ github.event.pull_request.number }}
+        
+        run: gh pr edit $NUMBER --add-label "SUB"
