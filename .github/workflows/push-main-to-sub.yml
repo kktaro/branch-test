@@ -1,8 +1,8 @@
 name: Push main to sub
 on:
   pull_request:
-    types:
-      - opened
+    # types:
+    #   - opened
     branches:
       - 'main'
 jobs:
