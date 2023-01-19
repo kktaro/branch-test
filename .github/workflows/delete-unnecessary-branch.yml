@@ -1,0 +1,26 @@
+name: Delete Unnecessary Branch
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'sub'
+jobs:
+  Create-Pull-Request:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with: 
+          fetch-depth: 0
+
+      - name: Fetch List Where has Same HEAD
+        env: 
+          HEAD: ${{ github.event.pull_request.head.ref }}
+        run: echo pr-list="gh pr list --state open --head '${HEAD}'" >> $GITHUB_ENV
+
+      - name: Delete Branch If Need
+        run: echo ${{ env.pr-list }}        
