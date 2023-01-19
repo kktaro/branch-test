@@ -21,4 +21,5 @@ jobs:
         run: echo count=`gh pr list --state open --head "feature/add-ccc" | wc -l | xargs` >> $GITHUB_ENV
 
       - name: Delete Branch If Need
-        run: echo ${{ env.list }}
+        if: env.count == 1
+        run: echo DELETE
