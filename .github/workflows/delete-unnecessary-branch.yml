@@ -5,7 +5,7 @@ on:
       - closed
 jobs:
   Create-Pull-Request:
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env: 
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -18,9 +18,9 @@ jobs:
       - name: Fetch List Where has Same HEAD
         env: 
           HEAD: ${{ github.event.pull_request.head.ref }}
-        run: |
-          pr-list=`gh pr list --state open --head "${HEAD}"`
-          echo "list=${pr-list}" >> $GITHUB.ENV
+        # オープンしているPRのうち、Headのブランチ名が一致するPRの件数を取得する
+        run: echo count=`gh pr list --state open --head "feature/add-ddd" | wc -l | xargs` >> $GITHUB_ENV
 
       - name: Delete Branch If Need
-        run: echo ${{ env.list }}
+        if: env.count == 0
+        run: git push --delete origin feature/add-ddd
