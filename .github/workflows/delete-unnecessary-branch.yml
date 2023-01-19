@@ -18,9 +18,7 @@ jobs:
       - name: Fetch List Where has Same HEAD
         env: 
           HEAD: ${{ github.event.pull_request.head.ref }}
-        run: |
-          pr-count="`gh pr list --state open --head "${HEAD}" | wc -l`"
-          echo "list=${pr-count}" >> $GITHUB.ENV
+        run: echo count=`gh pr list --state open --head "feature/add-ccc" | wc -l | xargs` >> $GITHUB_ENV
 
       - name: Delete Branch If Need
         run: echo ${{ env.list }}
