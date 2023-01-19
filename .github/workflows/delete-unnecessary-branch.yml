@@ -18,7 +18,9 @@ jobs:
       - name: Fetch List Where has Same HEAD
         env: 
           HEAD: ${{ github.event.pull_request.head.ref }}
-        run: echo pr-list=gh pr list --state open --head "${HEAD}" >> $GITHUB_ENV
+        # オープンしているPRのうち、Headのブランチ名が一致するPRの件数を取得する
+        run: echo count=`gh pr list --state open --head "feature/add-ddd" | wc -l | xargs` >> $GITHUB_ENV
 
       - name: Delete Branch If Need
-        run: echo ${{ env.pr-list }}
+        if: env.count == 0
+        run: git push --delete origin feature/add-ddd
