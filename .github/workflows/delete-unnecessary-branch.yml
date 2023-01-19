@@ -19,7 +19,7 @@ jobs:
         env: 
           HEAD: ${{ github.event.pull_request.head.ref }}
         run: |
-          pr-list=gh pr list --state open --head "${HEAD}"
+          pr-list=`gh pr list --state open --head "${HEAD}"`
           echo "list=${pr-list}" >> $GITHUB.ENV
 
       - name: Delete Branch If Need
