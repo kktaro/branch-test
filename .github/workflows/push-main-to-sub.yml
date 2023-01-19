@@ -25,3 +25,8 @@ jobs:
           HEAD: ${{ github.event.pull_request.head.ref }}
         
         run: gh pr create --base sub --head "${HEAD}" --title "${TITLE}" --body "${BODY}" --assignee "${ASSIGNEES}" --reviewer "${REVIEWERS}" --label "SUB"
+      - name: Check-SHA
+        env:
+          SHA: ${{ github.event.pull_request.head.sha }}
+        
+        run: echo $SHA
