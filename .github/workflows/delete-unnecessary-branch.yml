@@ -19,8 +19,10 @@ jobs:
         env: 
           HEAD: ${{ github.event.pull_request.head.ref }}
         # オープンしているPRのうち、Headのブランチ名が一致するPRの件数を取得する
-        run: echo count=`gh pr list --state open --head "feature/add-ddd" | wc -l | xargs` >> $GITHUB_ENV
+        run: echo count=`gh pr list --state open --head "${HEAD}" | wc -l | xargs` >> $GITHUB_ENV
 
       - name: Delete Branch If Need
         if: env.count == 0
-        run: git push --delete origin feature/add-ddd
+        env: 
+          HEAD: ${{ github.event.pull_request.head.ref }}
+        run: git push --delete origin "${HEAD}"
